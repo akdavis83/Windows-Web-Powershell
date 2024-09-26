@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Windows PowerShell</title>
+  <link rel="icon" href="https://fav.farm/🔥" />
+  <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css'>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    body {
+  background-color: #1e1e1e;
+  color: #ffffff;
+  font-family: Consolas, monaco, monospace;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+}
+
+.shell-box {
+  background-color: #2d2d30;
+  width: 600px;
+  height: 400px;
+  border-radius: 5px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+  padding: 10px;
+}
+
+.shell-heading {
+  color: #00d4ff;
+  font-size: 20px;
+  margin-bottom: 10px;
+}
+
+.shell-heading .icon {
+  margin-right: 5px;
+}
+
+.shell-script {
+  background-color: #1e1e1e;
+  padding: 10px;
+  height: 320px;
+  overflow-y: auto;
+  border: 1px solid #333;
+}
+
+.cmd-line {
+  margin-top: 5px;
+  color: #ddff00;
+}
+
+.type {
+  outline: none;
+}
+
+.history {
+  color: #ffffff;
+}
+
+.welcome {
+  color: #aaaaaa;
+  margin-bottom: 10px;
+}
+
+  </style>
+</head>
+<body>
+  <div class="shell-box">
+    <div class="shell-heading">
+      <i class="fa fa-terminal icon"></i> Power Shell
+    </div>
+    <div class="shell-script">
+      <div class="welcome">Welcome to PowerShell</div>
+      <div class="history"></div>
+      <div class="cmd-line">PS C:\>&nbsp;<span class="type" contenteditable="true"></span></div>
+    </div>
+  </div>
+  
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js'></script>
+  <script src="script.js">
+    $(document).ready(function() {
+  // Focus on the input field when the page loads
+  $('.type').focus();
+
+  // Capture Enter key press event in the input field
+  $(document).on('keydown', '.type', function(e) {
+    if (e.key === 'Enter') {
+      e.preventDefault();  // Prevent new line
+
+      // Get the command that was typed
+      let command = $(this).text();
+
+      // Append the command to the history
+      $('.history').append('<div>PS C:\\> ' + command + '</div>');
+
+      // Clear the input field for the next command
+      $(this).text('');
+
+      // Simulate response (for now, it just echoes the command)
+      setTimeout(function() {
+        if (command.toLowerCase() === 'clear') {
+          $('.history').empty();  // Clear the history if the command is "clear"
+        } else {
+          $('.history').append('<div>Command not recognized: ' + command + '</div>');
+        }
+
+        // Scroll to the bottom of the shell script
+        $('.shell-script').scrollTop($('.shell-script')[0].scrollHeight);
+      }, 200);
+    }
+  });
+
+  // Focus on the input field when clicking anywhere in the shell
+  $('.shell-script').click(function() {
+    $('.type').focus();
+  });
+});
+$(document).ready(function() {
+  // Focus on the input field when the page loads
+  $('.type').focus();
+
+  // Capture Enter key press event in the input field
+  $(document).on('keydown', '.type', function(e) {
+    if (e.key === 'Enter') {
+      e.preventDefault();  // Prevent new line
+
+      // Get the command that was typed
+      let command = $(this).text().trim();
+
+      // Append the command to the history
+      $('.history').append('<div>PS C:\\> ' + command + '</div>');
+
+      // Clear the input field for the next command
+      $(this).text('');
+
+      // Simulate response based on the command
+      setTimeout(function() {
+        if (command.toLowerCase() === 'clear') {
+          $('.history').empty();  // Clear the history if the command is "clear"
+        } else if (command.toLowerCase().startsWith('npm install')) {
+          mimicNpmInstall(command);
+        } else {
+          $('.history').append('<div>Command not recognized: ' + command + '</div>');
+        }
+
+        // Scroll to the bottom of the shell script
+        $('.shell-script').scrollTop($('.shell-script')[0].scrollHeight);
+      }, 200);
+    }
+  });
+
+  // Focus on the input field when clicking anywhere in the shell
+  $('.shell-script').click(function() {
+    $('.type').focus();
+  });
+
+  // Function to mimic npm install output
+  function mimicNpmInstall(command) {
+    // Get package name if provided (e.g., "npm install package-name")
+    let packageName = command.split(' ')[2] || '';
+
+    let output = `<div>npm notice </div>`;
+    output += `<div>npm WARN config global \`--global\`, \`--local\`, \`--save\` options have been deprecated</div>`;
+    output += `<div>npm WARN config package-lock.json is being created</div>`;
+    
+    // Simulate installing a package
+    if (packageName) {
+      output += `<div>npm info lifecycle ${packageName}@latest~preinstall: ${packageName}@latest</div>`;
+      output += `<div>npm info lifecycle ${packageName}@latest~install: ${packageName}@latest</div>`;
+      output += `<div>+ ${packageName}@latest</div>`;
+    }
+
+    output += `<div>added 1 package from 1 contributor in 0.123s</div>`;
+    output += `<div>found 0 vulnerabilities</div>`;
+
+    // Append the simulated npm output to the history
+    $('.history').append(output);
+  }
+});
+
+
+  </script>
+</body>
+</html>

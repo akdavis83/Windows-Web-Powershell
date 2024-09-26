@@ -1,0 +1,73 @@
+[contenteditable]:focus {
+    outline: 0px solid transparent;
+}
+
+body {
+  font-family: Arial;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+  width: 100vw;
+  min-height: 100vh;
+  overflow-y: hidden;
+  background-color: whitesmoke;
+}
+
+.shell-box {
+  display: flex;
+  flex-direction: column;
+  width: 700px;
+  height: 400px;
+  background-color: red;
+  margin: 50px 10px;
+  box-shadow: 4px 4px 8px gray;
+}
+
+.shell-heading {
+  padding: .4rem .5rem;
+  color: #fff;
+  background-color: blue;
+}
+
+.icon {
+  box-sizing: border-box;
+  color: whitesmoke;
+  border: 1px solid #222;
+  background: #222;
+  padding: 3px;
+  font-size: 13px;
+  border-radius: 2px;
+}
+
+.shell-script {
+  letter-spacing: 1.5px;
+  height: 100%;
+  padding: .5rem 1rem;
+  color: #fff;
+  background-color: #333;
+  overflow-y: auto;
+}
+
+/* text color */
+
+.txt-green {
+  color: green;
+}
+
+.txt-lightgreen {
+  color: lightgreen;
+}
+
+.txt-red {
+  color: red;
+}
+
+.txt-white {
+  color: white;
+}
+
+.txt-yellow {
+  color: yellow;
+}
